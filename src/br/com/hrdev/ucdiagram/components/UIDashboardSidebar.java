@@ -13,10 +13,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
 import br.com.hrdev.ucdiagram.events.AdicionarDiagramaEvent;
-import br.com.hrdev.ucdiagram.models.Ator;
-import br.com.hrdev.ucdiagram.models.ComponentItem;
 import br.com.hrdev.ucdiagram.models.Diagrama;
+import br.com.hrdev.ucdiagram.models.Element;
 import br.com.hrdev.ucdiagram.models.Projeto;
+import br.com.hrdev.ucdiagram.models.figures.Actor;
+import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.utils.Icons;
 import br.com.hrdev.ucdiagram.views.DashboardView;
 
@@ -66,11 +67,11 @@ public class UIDashboardSidebar extends JPanel {
 		add(editableArea,BorderLayout.SOUTH);
 	}
 	
-	public void editItem(ComponentItem item){
+	public void editItem(Figure item){
 		editableArea.setItem(item);
 	}
 	
-	public ComponentItem getItem() {
+	public Element getItem() {
 		return editableArea.getItem();
 	}
 	
@@ -93,7 +94,7 @@ public class UIDashboardSidebar extends JPanel {
 		
 		
 		DefaultMutableTreeNode atores = new DefaultMutableTreeNode("Atores");
-		for (Ator ator : projeto.getAtores()) {
+		for (Actor ator : projeto.getAtores()) {
 			atores.add(new DefaultMutableTreeNode(ator));
 		}
 

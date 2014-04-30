@@ -10,7 +10,11 @@ public class UIToolBarButton extends JToggleButton {
 	
 	public static final int Ator = 1;
 	public static final int Caso = 2;
+	public static final int Dependency = 3;
+	public static final int Association = 4;
 	public static final int Pointer = 0;
+	
+	
 	
 	private int tipo;
 	

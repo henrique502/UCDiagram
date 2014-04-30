@@ -7,9 +7,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.TreeCellRenderer;
 
-import br.com.hrdev.ucdiagram.models.Ator;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Projeto;
+import br.com.hrdev.ucdiagram.models.figures.Actor;
 import br.com.hrdev.ucdiagram.utils.Icons;
 
 // https://community.oracle.com/thread/2075008?start=0&tstart=0
@@ -54,7 +54,7 @@ public class UITreeCellRenderer extends DefaultTreeCellRenderer implements TreeC
 		if(objeto instanceof Diagrama)
 			return diagramaIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 		
-		if(objeto instanceof Ator)
+		if(objeto instanceof Actor)
 			return atorIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 
 		return padraoIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);

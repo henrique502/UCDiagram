@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.com.hrdev.ucdiagram.models.ComponentItem;
+import br.com.hrdev.ucdiagram.models.Element;
 import br.com.hrdev.ucdiagram.utils.Icons;
 
 public class UIDashboardSidebarEditableArea extends JPanel implements ActionListener {
@@ -18,7 +18,7 @@ public class UIDashboardSidebarEditableArea extends JPanel implements ActionList
 	
 	private JTextField nome, x, y;
 	private JButton salvar, cancelar;
-	private ComponentItem item = null;
+	private Element item = null;
 	private UIDashboardSidebar sidebar;
 	
 	public UIDashboardSidebarEditableArea(UIDashboardSidebar sidebar){
@@ -79,7 +79,7 @@ public class UIDashboardSidebarEditableArea extends JPanel implements ActionList
 		setEnabled(false);
 	}
 	
-	public void setItem(ComponentItem i){
+	public void setItem(Element i){
 		clear();
 		
 		item = i;
@@ -90,7 +90,7 @@ public class UIDashboardSidebarEditableArea extends JPanel implements ActionList
 		y.setText(item.getY() + "");
 	}
 
-	public ComponentItem getItem() {
+	public Element getItem() {
 		return item;
 	}
 

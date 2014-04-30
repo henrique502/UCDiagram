@@ -18,9 +18,9 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-import br.com.hrdev.ucdiagram.models.Ator;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Projeto;
+import br.com.hrdev.ucdiagram.models.figures.Actor;
 import br.com.hrdev.ucdiagram.views.DashboardView;
 
 public class UITree extends JTree implements MouseListener, TreeSelectionListener {
@@ -78,8 +78,8 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 		if(objeto instanceof Diagrama)
 			diagramaOptions((Diagrama) objeto);
 		
-		if(objeto instanceof Ator)
-			atorOptions((Ator) objeto);
+		if(objeto instanceof Actor)
+			atorOptions((Actor) objeto);
 		
 		if(objeto instanceof Projeto)
 			projetoOptions((Projeto) objeto);
@@ -87,7 +87,7 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 		popup.revalidate();
 	}
 	
-	private void atorOptions(final Ator ator){
+	private void atorOptions(final Actor ator){
 		canOpenMenu = true;
 		JMenuItem option = new JMenuItem("Remover ator " + ator);
 		option.addActionListener(new ActionListener() {

@@ -19,8 +19,12 @@ public class Icons {
 	public static final ImageIcon Folder_open = new Icons().getIcon("folder_open");
 	public static final ImageIcon Page_empty = new Icons().getIcon("page_empty");
 	public static final ImageIcon Page = new Icons().getIcon("page");
+	
 	public static final ImageIcon Ator = new Icons().getIcon("ator");
 	public static final ImageIcon Caso = new Icons().getIcon("caso");
+	public static final ImageIcon Association = new Icons().getIcon("association");
+	public static final ImageIcon Dependency = new Icons().getIcon("dependency");
+	
 	public static final ImageIcon Diagrama = new Icons().getIcon("diagrama");
 	public static final ImageIcon Projeto = new Icons().getIcon("projeto");
 	

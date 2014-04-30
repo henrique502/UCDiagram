@@ -20,10 +20,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
-import br.com.hrdev.ucdiagram.models.Ator;
-import br.com.hrdev.ucdiagram.models.Caso;
-import br.com.hrdev.ucdiagram.models.ComponentItem;
 import br.com.hrdev.ucdiagram.models.Diagrama;
+import br.com.hrdev.ucdiagram.models.Element;
+import br.com.hrdev.ucdiagram.models.arrows.Arrow;
+import br.com.hrdev.ucdiagram.models.figures.Actor;
+import br.com.hrdev.ucdiagram.models.figures.Case;
+import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.utils.Icons;
 import br.com.hrdev.ucdiagram.views.DashboardView;
 
@@ -74,6 +76,15 @@ public class UIDashboardDiagramArea extends JPanel {
 		toolbarButtons.add(button);
 		toolbar.add(button);
 		
+		button = new UIToolBarButton(Icons.Dependency,"Dependencia",UIToolBarButton.Dependency);
+		buttonGroup.add(button);
+		toolbarButtons.add(button);
+		toolbar.add(button);
+		
+		button = new UIToolBarButton(Icons.Association,"Associa\u00e7\u00e3o",UIToolBarButton.Association);
+		buttonGroup.add(button);
+		toolbarButtons.add(button);
+		toolbar.add(button);
 		
 		add(toolbar,BorderLayout.NORTH);
 	}
@@ -127,14 +138,17 @@ public class UIDashboardDiagramArea extends JPanel {
 		return -1;
 	}
 	
-	private ComponentItem getSelectedComponent(Point p){
+	private Figure getSelectedComponent(Point p){
+		return null;
+		/*
 		Component[] layers = currentDiagram.getComponents();
 		for (Component layer : layers)
-			if(layer instanceof ComponentItem)
+			if(layer instanceof Element)
 				if(layer.contains(p))
-					return (ComponentItem) layer;
+					return (Figure) layer;
 		
 		return null;
+		*/
 	}
 	
 
@@ -144,12 +158,24 @@ public class UIDashboardDiagramArea extends JPanel {
 		private volatile int screenY = 0;
 		private volatile int myX = 0;
 		private volatile int myY = 0;
-
+		private Arrow newArrow = null;
+		
+		private void reset(int tipo){
+			
+			if(tipo != UIToolBarButton.Association)
+				newArrow = null;
+			
+			dashboard.getSidebar().updateDataTree();
+			buttonGroup.clearSelection();
+			dashboard.getSidebar().clearItem();
+			dashboard.repaint();
+		}
+		
 		private void addItem(Point point, int tipo){
 			switch(tipo){
 				// Cria novo ator
 				case UIToolBarButton.Ator : 
-					Ator ator = new Ator("Ator " + window.getProjeto().getAtores().size());
+					Actor ator = new Actor("Ator " + window.getProjeto().getAtores().size());
 					ator.setPoint(point);
 					currentDiagram.add(ator);		
 					window.getProjeto().getAtores().add(ator);
@@ -160,23 +186,20 @@ public class UIDashboardDiagramArea extends JPanel {
 					String titulo = JOptionPane.showInputDialog("Digite o caso:");
 					if(titulo == null || titulo.trim().length() == 0) break;
 					
-					Caso caos = new Caso(titulo);
+					Case caos = new Case(titulo);
 					caos.setPoint(point);
 					currentDiagram.add(caos);
 				break;
 			}
 			
-			dashboard.getSidebar().updateDataTree();
-			buttonGroup.clearSelection();
-			dashboard.getSidebar().clearItem();
-			dashboard.repaint();
+			reset(tipo);
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(currentDiagram == null) return;
 			
-			ComponentItem layer = getSelectedComponent(e.getPoint());
+			Figure layer = getSelectedComponent(e.getPoint());
 			int tipo = getSelectedToolbarButton();
 			
 			if(tipo >= 0){
@@ -197,7 +220,7 @@ public class UIDashboardDiagramArea extends JPanel {
 		
 		@Override
 		public void mousePressed(MouseEvent e) {
-			ComponentItem item = dashboard.getSidebar().getItem();
+			Element item = dashboard.getSidebar().getItem();
 			if(item == null || !item.contains(e.getPoint())) return;
 			setCursor(cursorMove);
 			
@@ -210,7 +233,7 @@ public class UIDashboardDiagramArea extends JPanel {
 		
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			ComponentItem item = dashboard.getSidebar().getItem();
+			Element item = dashboard.getSidebar().getItem();
 			if(item == null || !item.contains(e.getPoint())) return;
 			
 			int deltaX = e.getXOnScreen() - screenX;
