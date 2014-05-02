@@ -14,11 +14,9 @@ import br.com.hrdev.ucdiagram.views.View;
 
 public class CarregarProjetoEvent implements ActionListener {
 	
-	private UCDiagram window;
 	private View view;
 
-	public CarregarProjetoEvent(UCDiagram window, View view){
-		this.window = window;
+	public CarregarProjetoEvent(View view){
 		this.view = view;
 	}
 	
@@ -36,14 +34,14 @@ public class CarregarProjetoEvent implements ActionListener {
 		FileManager fm = new FileManager();
 		if(fm.checkFile(file)){
 			Projeto projeto = (Projeto) fm.load(file);
-			window.setProjeto(projeto);
-			window.setProjetoArquivo(file);
-			window.changeView(UCDiagram.Dashboard);
+			view.getWindow().setProjeto(projeto);
+			view.getWindow().setProjetoArquivo(file);
+			view.getWindow().changeView(UCDiagram.Dashboard);
 			if(view != null)
 				view.updateUIContents();
 			
 		} else {
-			JOptionPane.showMessageDialog(window, "Erro ao carregar o projeto");
+			JOptionPane.showMessageDialog(view.getWindow(), "Erro ao carregar o projeto");
 			System.out.println(file);
 		}
 	}
@@ -51,7 +49,7 @@ public class CarregarProjetoEvent implements ActionListener {
 	private File getFile(){
 		FileBrowser fb = new FileBrowser();
 		
-		switch (fb.showOpenDialog(window)){
+		switch (fb.showOpenDialog(view.getWindow())){
 			case FileBrowser.APPROVE_OPTION : return fb.getSelectedFile();
 			default : return null;
 		}

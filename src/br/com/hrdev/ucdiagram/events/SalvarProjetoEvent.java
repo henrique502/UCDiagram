@@ -7,18 +7,19 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import br.com.hrdev.ucdiagram.UCDiagram;
 import br.com.hrdev.ucdiagram.libraries.FileBrowser;
 import br.com.hrdev.ucdiagram.libraries.FileManager;
 import br.com.hrdev.ucdiagram.utils.Extension;
+import br.com.hrdev.ucdiagram.utils.Text;
+import br.com.hrdev.ucdiagram.views.View;
 
 public class SalvarProjetoEvent implements ActionListener {
 	
-	private UCDiagram window;
+	private View view;
 	private boolean newFile;
 
-	public SalvarProjetoEvent(UCDiagram window, boolean newfile){
-		this.window = window;
+	public SalvarProjetoEvent(View view, boolean newfile){
+		this.view = view;
 		this.newFile = newfile;
 	}
 	
@@ -29,7 +30,7 @@ public class SalvarProjetoEvent implements ActionListener {
 	
 	private void salvar(){
 		File file = null;
-		if(window.getProjetoArquivo() == null || newFile){
+		if(view.getWindow().getProjetoArquivo() == null || newFile){
 			file = setSaveFile();
 			file = new File(file.toString().replaceAll("." + Extension.ucdiagram, "") + "." + Extension.ucdiagram);
 			if(!file.exists()){
@@ -40,25 +41,25 @@ public class SalvarProjetoEvent implements ActionListener {
 				}
 			}
 		} else {
-			file = window.getProjetoArquivo();
+			file = view.getWindow().getProjetoArquivo();
 		}
 		
 		if(file == null) return;
 		
 		FileManager fm = new FileManager();
 		if(fm.checkFile(file)){
-			fm.save(window.getProjeto(), file);
-			window.setProjetoArquivo(file);
-			JOptionPane.showMessageDialog(window, "Projeto salvo com sucesso!");
+			fm.save(view.getWindow().getProjeto(), file);
+			view.getWindow().setProjetoArquivo(file);
+			JOptionPane.showMessageDialog(view.getWindow(), Text.key("salvar_sucesso"));
 		} else {
-			JOptionPane.showMessageDialog(window, "Erro ao salvar o projeto");
+			JOptionPane.showMessageDialog(view.getWindow(), Text.key("salvar_erro"));
 		}
 	}
 	
 	private File setSaveFile(){
 		FileBrowser fb = new FileBrowser();
 		
-		switch (fb.showSaveDialog(window)){
+		switch (fb.showSaveDialog(view.getWindow())){
 			case FileBrowser.APPROVE_OPTION : return fb.getSelectedFile();
 			default : return null;
 		}

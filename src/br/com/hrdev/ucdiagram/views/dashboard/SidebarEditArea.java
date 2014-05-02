@@ -1,4 +1,4 @@
-package br.com.hrdev.ucdiagram.components;
+package br.com.hrdev.ucdiagram.views.dashboard;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,16 +12,16 @@ import javax.swing.JTextField;
 import br.com.hrdev.ucdiagram.models.Element;
 import br.com.hrdev.ucdiagram.utils.Icons;
 
-public class UIDashboardSidebarEditableArea extends JPanel implements ActionListener {
+public class SidebarEditArea extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nome, x, y;
 	private JButton salvar, cancelar;
 	private Element item = null;
-	private UIDashboardSidebar sidebar;
+	private Sidebar sidebar;
 	
-	public UIDashboardSidebarEditableArea(UIDashboardSidebar sidebar){
+	public SidebarEditArea(Sidebar sidebar){
 		super(new GridLayout(4, 2, 5, 5));
 		this.sidebar = sidebar;
 		setup();

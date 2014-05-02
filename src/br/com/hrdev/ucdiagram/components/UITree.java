@@ -19,20 +19,19 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import br.com.hrdev.ucdiagram.models.Diagrama;
-import br.com.hrdev.ucdiagram.models.Projeto;
-import br.com.hrdev.ucdiagram.models.figures.Actor;
-import br.com.hrdev.ucdiagram.views.DashboardView;
+import br.com.hrdev.ucdiagram.models.figures.Figure;
+import br.com.hrdev.ucdiagram.views.Dashboard;
 
 public class UITree extends JTree implements MouseListener, TreeSelectionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPopupMenu popup;
-	private DashboardView view;
+	private Dashboard view;
 	
 	private boolean canOpenMenu = false;
 	
 	
-	public UITree(DashboardView view){
+	public UITree(Dashboard view){
 		super(new DefaultMutableTreeNode("Carregando..."));
 		this.view = view;
 		setDragEnabled(true);
@@ -67,34 +66,30 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 		if (isSelectionEmpty()) return;
 		TreePath path = getSelectionPath();
 		DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
-		
-		if(!selectedNode.isLeaf()) return;
-		
 		Object objeto = selectedNode.getUserObject();
-
+		
 		canOpenMenu = false;
 		popup.removeAll();
 		
-		if(objeto instanceof Diagrama)
+		if(objeto instanceof Diagrama){
 			diagramaOptions((Diagrama) objeto);
-		
-		if(objeto instanceof Actor)
-			atorOptions((Actor) objeto);
-		
-		if(objeto instanceof Projeto)
-			projetoOptions((Projeto) objeto);
+		} else {
+			if(selectedNode.isLeaf()){
 			
+				if(objeto instanceof Figure)
+					figureOptions((Figure) objeto);
+			}
+		}
 		popup.revalidate();
 	}
 	
-	private void atorOptions(final Actor ator){
+	private void figureOptions(final Figure figure){
 		canOpenMenu = true;
-		JMenuItem option = new JMenuItem("Remover ator " + ator);
+		JMenuItem option = new JMenuItem("Remover " + figure);
 		option.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				view.getWindow().getProjeto().removerAtor(ator);
-				view.updateAll();
+				
 			}
 		});
 		popup.add(option);
@@ -111,13 +106,6 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 				view.updateAll();
 			}
 		});
-		popup.add(option);
-	}
-	
-	private void projetoOptions(final Projeto projeto){
-		canOpenMenu = true;
-		JMenuItem option = new JMenuItem("Editar nome " + projeto);
-
 		popup.add(option);
 	}
 	
@@ -143,6 +131,5 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 			}
 		}
 		tree.expandPath(parent);
-		// tree.collapsePath(parent);
 	}
 }

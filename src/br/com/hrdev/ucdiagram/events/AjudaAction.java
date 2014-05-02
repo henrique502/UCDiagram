@@ -7,18 +7,19 @@ import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import br.com.hrdev.ucdiagram.UCDiagram;
+import br.com.hrdev.ucdiagram.utils.Text;
+import br.com.hrdev.ucdiagram.views.View;
 
 public class AjudaAction implements ActionListener, MenuListener {
 
-	private UCDiagram window;
+	private View view;
 	
-	public AjudaAction(UCDiagram window){
-		this.window = window;
+	public AjudaAction(View view){
+		this.view = view;
 	}
 	
 	private void openText(){
-		JOptionPane.showMessageDialog(window, "By Henrique Rieger\nwww.hrdev.com.br", "Ajuda", JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(view.getWindow(), Text.key("ajuda_texto"), Text.key("ajuda"), JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	@Override

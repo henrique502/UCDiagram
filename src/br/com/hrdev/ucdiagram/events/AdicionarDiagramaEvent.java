@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import br.com.hrdev.ucdiagram.models.Diagrama;
-import br.com.hrdev.ucdiagram.views.DashboardView;
+import br.com.hrdev.ucdiagram.views.Dashboard;
 
 public class AdicionarDiagramaEvent implements ActionListener {
 
-	private DashboardView view;
+	private Dashboard view;
 
-	public AdicionarDiagramaEvent(DashboardView view){
+	public AdicionarDiagramaEvent(Dashboard view){
 		this.view = view;
 	}
 	

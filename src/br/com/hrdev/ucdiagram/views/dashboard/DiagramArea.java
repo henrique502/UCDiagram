@@ -1,9 +1,8 @@
-package br.com.hrdev.ucdiagram.components;
+package br.com.hrdev.ucdiagram.views.dashboard;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -12,28 +11,23 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import br.com.hrdev.ucdiagram.UCDiagram;
+import br.com.hrdev.ucdiagram.components.UIToolBarButton;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
-import br.com.hrdev.ucdiagram.models.arrows.Arrow;
-import br.com.hrdev.ucdiagram.models.figures.Actor;
-import br.com.hrdev.ucdiagram.models.figures.Case;
 import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.utils.Icons;
-import br.com.hrdev.ucdiagram.views.DashboardView;
+import br.com.hrdev.ucdiagram.views.Dashboard;
 
-public class UIDashboardDiagramArea extends JPanel {
+public class DiagramArea extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private UCDiagram window;
-	private DashboardView dashboard;
+	private Dashboard dashboard;
 	private JPanel diagramArea;
 	private ArrayList<UIToolBarButton> toolbarButtons;
 	private ButtonGroup buttonGroup;
@@ -45,9 +39,8 @@ public class UIDashboardDiagramArea extends JPanel {
 	/* Temp Vars */
 	private Diagrama currentDiagram = null;
 	
-	public UIDashboardDiagramArea(UCDiagram window, DashboardView dashboard){
+	public DiagramArea(Dashboard dashboard){
 		super(new BorderLayout(0,0));
-		this.window = window;
 		this.dashboard = dashboard;
 		setBackground(Color.white);
 		setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -60,32 +53,7 @@ public class UIDashboardDiagramArea extends JPanel {
 	}
 	
 	private void setToolBar(){
-		JToolBar toolbar = new JToolBar(SwingConstants.HORIZONTAL);
-		toolbar.setFloatable(false);
-
-		buttonGroup = new ButtonGroup();
-		toolbarButtons = new ArrayList<UIToolBarButton>();
-
-		UIToolBarButton button = new UIToolBarButton(Icons.Ator,"Criar novo ator",UIToolBarButton.Ator);
-		buttonGroup.add(button);
-		toolbarButtons.add(button);
-		toolbar.add(button);
-		
-		button = new UIToolBarButton(Icons.Caso,"Criar novo Caso",UIToolBarButton.Caso);
-		buttonGroup.add(button);
-		toolbarButtons.add(button);
-		toolbar.add(button);
-		
-		button = new UIToolBarButton(Icons.Dependency,"Dependencia",UIToolBarButton.Dependency);
-		buttonGroup.add(button);
-		toolbarButtons.add(button);
-		toolbar.add(button);
-		
-		button = new UIToolBarButton(Icons.Association,"Associa\u00e7\u00e3o",UIToolBarButton.Association);
-		buttonGroup.add(button);
-		toolbarButtons.add(button);
-		toolbar.add(button);
-		
+		Toolbar toolbar = new Toolbar(dashboard);
 		add(toolbar,BorderLayout.NORTH);
 	}
 	
@@ -107,7 +75,7 @@ public class UIDashboardDiagramArea extends JPanel {
 		blank.setOpaque(false);
 		diagramArea.add(blank,"blank");
 		
-		for(Diagrama diagrama : window.getProjeto().getDiagramas()){
+		for(Diagrama diagrama : dashboard.getWindow().getProjeto().getDiagramas()){
 			diagramArea.add(diagrama,diagrama.getNome());
 		}
 	}
@@ -158,12 +126,9 @@ public class UIDashboardDiagramArea extends JPanel {
 		private volatile int screenY = 0;
 		private volatile int myX = 0;
 		private volatile int myY = 0;
-		private Arrow newArrow = null;
 		
 		private void reset(int tipo){
 			
-			if(tipo != UIToolBarButton.Association)
-				newArrow = null;
 			
 			dashboard.getSidebar().updateDataTree();
 			buttonGroup.clearSelection();
@@ -175,20 +140,20 @@ public class UIDashboardDiagramArea extends JPanel {
 			switch(tipo){
 				// Cria novo ator
 				case UIToolBarButton.Ator : 
-					Actor ator = new Actor("Ator " + window.getProjeto().getAtores().size());
-					ator.setPoint(point);
-					currentDiagram.add(ator);		
-					window.getProjeto().getAtores().add(ator);
+					//Actor ator = new Actor("Ator " + dashboard.getWindow().getProjeto().getAtores().size());
+					//ator.setPoint(point);
+					//currentDiagram.add(ator);		
+					//window.getProjeto().getAtores().add(ator);
 					
 				break;
 				// Criar novo caso
 				case UIToolBarButton.Caso :
-					String titulo = JOptionPane.showInputDialog("Digite o caso:");
-					if(titulo == null || titulo.trim().length() == 0) break;
+					//String titulo = JOptionPane.showInputDialog("Digite o caso:");
+					//if(titulo == null || titulo.trim().length() == 0) break;
 					
-					Case caos = new Case(titulo);
-					caos.setPoint(point);
-					currentDiagram.add(caos);
+					//Case caos = new Case(titulo);
+					//caos.setPoint(point);
+					//currentDiagram.add(caos);
 				break;
 			}
 			

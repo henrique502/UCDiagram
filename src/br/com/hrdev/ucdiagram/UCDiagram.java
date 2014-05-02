@@ -6,21 +6,22 @@ import java.awt.Dimension;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import br.com.hrdev.ucdiagram.components.UIMenuBar;
 import br.com.hrdev.ucdiagram.models.Projeto;
 import br.com.hrdev.ucdiagram.utils.Icons;
-import br.com.hrdev.ucdiagram.views.DashboardView;
-import br.com.hrdev.ucdiagram.views.WelcomeView;
+import br.com.hrdev.ucdiagram.utils.Text;
+import br.com.hrdev.ucdiagram.views.Dashboard;
+import br.com.hrdev.ucdiagram.views.Welcome;
 
 public class UCDiagram extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private static final Dimension Size = new Dimension(1024, 700);
 
-	public static final String Title = "UCDiagram";
+	public static String Title = null;
 	
 	private JPanel painel;
 	private CardLayout layout;
@@ -33,6 +34,7 @@ public class UCDiagram extends JFrame {
 	
 	public UCDiagram(){
 		super();
+		Title = Text.key("title");
 		run();
 	}
 	
@@ -48,7 +50,7 @@ public class UCDiagram extends JFrame {
 		setMinimumSize(Size);
 		setResizable(true);
 		setLocationRelativeTo(null);
-		setJMenuBar(new UIMenuBar(this));
+		setJMenuBar(new JMenuBar());
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setIconImage(Icons.Favicon.getImage());
@@ -62,8 +64,11 @@ public class UCDiagram extends JFrame {
 	}
 	
 	private void setViews(){
-		painel.add(new WelcomeView(this),Welcome);
-		painel.add(new DashboardView(this),Dashboard);
+		painel.add(new JPanel(),"blank");
+		painel.add(new Welcome(this),Welcome);
+		painel.add(new Dashboard(this),Dashboard);
+		
+		changeView(Welcome);
 	}
 	
 	public void changeView(String idView){
