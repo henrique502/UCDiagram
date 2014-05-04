@@ -10,14 +10,17 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
+import br.com.hrdev.ucdiagram.controllers.DiagramaController;
 import br.com.hrdev.ucdiagram.events.CarregarProjetoEvent;
 import br.com.hrdev.ucdiagram.events.CloseEvent;
 import br.com.hrdev.ucdiagram.events.NovoProjetoEvent;
 import br.com.hrdev.ucdiagram.events.SalvarProjetoEvent;
 import br.com.hrdev.ucdiagram.models.Diagrama;
+import br.com.hrdev.ucdiagram.utils.ComponentsUtil;
 import br.com.hrdev.ucdiagram.utils.Text;
 import br.com.hrdev.ucdiagram.views.dashboard.DiagramArea;
 import br.com.hrdev.ucdiagram.views.dashboard.Sidebar;
+import br.com.hrdev.ucdiagram.views.dashboard.Toolbar;
 
 public class Dashboard extends View {
 
@@ -51,6 +54,28 @@ public class Dashboard extends View {
 
 	public Sidebar getSidebar() {
 		return sidebar;
+	}
+	
+	public Toolbar getToolbar() {
+		return diagramArea.getToolbar();
+	}
+	
+	public Diagrama getDiagram() {
+		return diagramArea.getCurrentDiagrama();
+	}
+	
+	public void removeDiagramaListiners(Diagrama diagrama){
+		if(diagrama == null) return;
+			
+		ComponentsUtil.clearMouseListeners(diagrama);
+		ComponentsUtil.clearMouseMotionListeners(diagrama);
+	}
+	
+	public void setDiagramaListiners(Diagrama diagrama){
+		if(diagrama == null) return;
+				
+		diagrama.addMouseListener(new DiagramaController(this));
+		diagrama.addMouseMotionListener(new DiagramaController(this));
 	}
 	
 	@Override

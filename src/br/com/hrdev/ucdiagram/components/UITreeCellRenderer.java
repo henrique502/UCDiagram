@@ -10,6 +10,7 @@ import javax.swing.tree.TreeCellRenderer;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Projeto;
 import br.com.hrdev.ucdiagram.models.figures.Actor;
+import br.com.hrdev.ucdiagram.models.figures.Case;
 import br.com.hrdev.ucdiagram.utils.Icons;
 
 // https://community.oracle.com/thread/2075008?start=0&tstart=0
@@ -17,20 +18,25 @@ import br.com.hrdev.ucdiagram.utils.Icons;
 @SuppressWarnings("serial")
 public class UITreeCellRenderer extends DefaultTreeCellRenderer implements TreeCellRenderer {
 	
-	private DefaultTreeCellRenderer diagramaIconRenderer, atorIconRenderer, projetoIconRenderer, padraoIconRenderer;
+	private DefaultTreeCellRenderer diagramaIconRenderer, atorIconRenderer, caseIconRenderer, projetoIconRenderer, padraoIconRenderer;
 	
 	public UITreeCellRenderer(){
 		super();
 		
 		diagramaIconRenderer = new DefaultTreeCellRenderer();
 		diagramaIconRenderer.setLeafIcon(Icons.Diagrama);
-		diagramaIconRenderer.setOpenIcon(null);
-		diagramaIconRenderer.setClosedIcon(null);
+		diagramaIconRenderer.setOpenIcon(Icons.Diagrama);
+		diagramaIconRenderer.setClosedIcon(Icons.Diagrama);
         
 		atorIconRenderer = new DefaultTreeCellRenderer();
 		atorIconRenderer.setLeafIcon(Icons.Ator);
 		atorIconRenderer.setOpenIcon(null);
 		atorIconRenderer.setClosedIcon(null);
+		
+		caseIconRenderer = new DefaultTreeCellRenderer();
+		caseIconRenderer.setLeafIcon(Icons.Caso);
+		caseIconRenderer.setOpenIcon(null);
+		caseIconRenderer.setClosedIcon(null);
 		
 		projetoIconRenderer = new DefaultTreeCellRenderer();
 		projetoIconRenderer.setLeafIcon(null);
@@ -56,6 +62,9 @@ public class UITreeCellRenderer extends DefaultTreeCellRenderer implements TreeC
 		
 		if(objeto instanceof Actor)
 			return atorIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
+		
+		if(objeto instanceof Case)
+			return caseIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 
 		return padraoIconRenderer.getTreeCellRendererComponent(tree, value, selected, expanded, leaf, row, hasFocus);
 	}

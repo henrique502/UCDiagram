@@ -2,6 +2,7 @@ package br.com.hrdev.ucdiagram.models.figures;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -17,8 +18,9 @@ public class Actor extends Figure implements Serializable {
 	
 	private Point fontPoint = null;
 	
-	public Actor(String nome, Graphics2D g){
-		super(g);
+	public Actor(String nome, Graphics graphics, Point point){
+		super((Graphics2D) graphics);
+		setLocation(point);
 		setNome(nome);
 	}
 	
@@ -49,7 +51,7 @@ public class Actor extends Figure implements Serializable {
 		
 		int x = (this.getWidth() - image.getWidth(null)) / 2;
 	    int y = Padding.height;
-
+	    
 		g.drawImage(image,getX() + x,getY() + y,null);
 		
 		paintText(g,y + Image.height + 14);
@@ -58,6 +60,6 @@ public class Actor extends Figure implements Serializable {
 	private void paintText(Graphics2D g, int y) {
 		g.setColor(Color.black);
 		g.setFont(getFont());
-		g.drawString(this.nome,getX() + fontPoint.x, getY() + y);
+		g.drawString(this.nome,+ fontPoint.x, getY() + y);
 	}
 }

@@ -20,6 +20,7 @@ public class Icons {
 	public static final ImageIcon Page_empty = new Icons().getIcon("page_empty");
 	public static final ImageIcon Page = new Icons().getIcon("page");
 	
+	public static final ImageIcon Cursor = new Icons().getIcon("cursor");
 	public static final ImageIcon Ator = new Icons().getIcon("ator");
 	public static final ImageIcon Caso = new Icons().getIcon("caso");
 	public static final ImageIcon Association = new Icons().getIcon("association");

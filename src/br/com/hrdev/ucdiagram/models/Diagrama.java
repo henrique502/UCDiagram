@@ -19,6 +19,7 @@ public class Diagrama extends JPanel {
 		setLayout(null);
 		setBackground(Color.white);
 		setFocusable(true);
+		setDoubleBuffered(true);
 		this.elementos = new ArrayList<Element>();
 	}
 	

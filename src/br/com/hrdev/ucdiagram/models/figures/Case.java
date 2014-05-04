@@ -3,6 +3,7 @@ package br.com.hrdev.ucdiagram.models.figures;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Ellipse2D;
@@ -15,8 +16,9 @@ public class Case extends Figure implements Serializable {
 	private Point fontPoint;
 	public static final Dimension Size = new Dimension(150, 60);
 	
-	public Case(String nome, Graphics2D g){
-		super(g);
+	public Case(String nome, Graphics graphics, Point point){
+		super((Graphics2D) graphics);
+		setLocation(point);
 		setNome(nome);
 	}
 	
