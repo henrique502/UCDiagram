@@ -69,10 +69,12 @@ public class DiagramArea extends JPanel {
 		if(diagrama == null){
 			card.show(diagramArea, "blank");
 			toolbar.setEnabled(false);
+			dashboard.getExportOption().setEnabled(false);
 			return;
 		}
 		
 		toolbar.setEnabled(true);
+		dashboard.getExportOption().setEnabled(true);
 		dashboard.removeDiagramaListiners(currentDiagram);
 		currentDiagram = diagrama;
 		

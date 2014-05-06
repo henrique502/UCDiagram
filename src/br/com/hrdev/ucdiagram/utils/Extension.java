@@ -9,7 +9,7 @@ import java.io.File;
 public class Extension {
 	
 	 public final static String ucdiagram = "ucdiagram";
-	 public final static String jpg = "jpg";
+	 public final static String png = "png";
 
 	 public static String getExtension(File f) {
 		 String ext = null;

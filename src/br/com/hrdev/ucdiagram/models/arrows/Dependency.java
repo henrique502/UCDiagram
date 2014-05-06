@@ -20,6 +20,7 @@ public class Dependency extends Arrow {
 	public void paint(Graphics2D g) {
 		Rectangle s = start.getRectangle();
 		Rectangle e = end.getRectangle();
+
 		g.setColor(Color.black);
 		g.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
 		
@@ -44,7 +45,7 @@ public class Dependency extends Arrow {
         AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
         at.concatenate(AffineTransform.getRotateInstance(angle));
         g.transform(at);
-
+        
         g.drawLine(0, 0, len, 0);
         g.drawLine(len, 0, len - ARR_SIZE, ARR_SIZE);
         g.drawLine(len, 0, len - ARR_SIZE, -ARR_SIZE);

@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
+import br.com.hrdev.ucdiagram.controllers.MenuExportController;
 import br.com.hrdev.ucdiagram.events.CarregarProjetoEvent;
 import br.com.hrdev.ucdiagram.events.CloseEvent;
 import br.com.hrdev.ucdiagram.events.NovoProjetoEvent;
@@ -26,6 +27,8 @@ public class Dashboard extends View {
 	private static final long serialVersionUID = 1L;
 	private Sidebar sidebar;
 	private DiagramArea diagramArea;
+	
+	private JMenuItem itemExportar;
 	
 	public Dashboard(UCDiagram window){
 		super(window);
@@ -97,7 +100,8 @@ public class Dashboard extends View {
 		itemSalvarComo.addActionListener(new SalvarProjetoEvent(this,true));
 		
 		/* Item Exportar */
-		JMenuItem itemExportar = new JMenuItem(Text.key("dashboard_menu_arquivo_exportar"));
+		itemExportar = new JMenuItem(Text.key("dashboard_menu_arquivo_exportar"));
+		itemExportar.addActionListener(new MenuExportController(this));
 		itemExportar.setEnabled(false);
 		
 		/* Item Sair */
@@ -117,6 +121,10 @@ public class Dashboard extends View {
         menuArquivo.add(itemSair);
         
         menubar.add(menuArquivo);
+	}
+	
+	public JMenuItem getExportOption(){
+		return itemExportar;
 	}
 
 	@Override

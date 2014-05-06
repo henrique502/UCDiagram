@@ -26,14 +26,14 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 
 	private static final long serialVersionUID = 1L;
 	private JPopupMenu popup;
-	private Dashboard view;
+	private Dashboard dashboard;
 	
 	private boolean canOpenMenu = false;
 	
 	
-	public UITree(Dashboard view){
-		super(new DefaultMutableTreeNode("Carregando..."));
-		this.view = view;
+	public UITree(Dashboard dashboard){
+		super(new DefaultMutableTreeNode());
+		this.dashboard = dashboard;
 		setDragEnabled(true);
 		getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		setFocusable(true);
@@ -75,38 +75,51 @@ public class UITree extends JTree implements MouseListener, TreeSelectionListene
 			diagramaOptions((Diagrama) objeto);
 		} else {
 			if(selectedNode.isLeaf()){
-			
-				if(objeto instanceof Figure)
-					figureOptions((Figure) objeto);
+				if(objeto instanceof Figure){
+					DefaultMutableTreeNode parent = (DefaultMutableTreeNode) selectedNode.getParent();
+					Diagrama diagrama = (Diagrama) parent.getUserObject();
+					figureOptions((Figure) objeto, diagrama, parent, selectedNode);
+				}
 			}
 		}
 		popup.revalidate();
 	}
 	
-	private void figureOptions(final Figure figure){
+	private void figureOptions(final Figure figure, final Diagrama diagrama, final DefaultMutableTreeNode parent, final DefaultMutableTreeNode node){
 		canOpenMenu = true;
 		JMenuItem option = new JMenuItem("Remover " + figure);
 		option.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				dashboard.getSidebar().clear();
+				diagrama.remove(figure);
+				diagrama.repaint();
+				parent.remove(node);
+				reload();
 			}
+
 		});
 		popup.add(option);
 	}
 	
 	private void diagramaOptions(final Diagrama diagrama){
-		view.showDiagram(diagrama); 
+		dashboard.showDiagram(diagrama); 
 		canOpenMenu = true;
 		JMenuItem option = new JMenuItem("Remover diagrama " + diagrama);
 		option.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				view.getWindow().getProjeto().removerDiagrama(diagrama);
-				view.updateAll();
+				dashboard.getWindow().getProjeto().removerDiagrama(diagrama);
+				dashboard.updateAll();
 			}
 		});
 		popup.add(option);
+	}
+	
+	public void reload() {
+		DefaultTreeModel model = (DefaultTreeModel) getModel();
+		model.reload();
+		expandAll();
 	}
 	
 	public void updateAll(DefaultMutableTreeNode rootNode) {

@@ -44,12 +44,32 @@ public class Diagrama extends JPanel {
 		}
 	}
 	
+	public ArrayList<Arrow> getArrowsFromFigure(Figure figure){
+		ArrayList<Arrow> arrows = new ArrayList<Arrow>();	
+		
+		for(Element e : elementos){
+			if(e instanceof Arrow){
+				Arrow arrow = (Arrow) e;
+				if(arrow.hasElement(figure)){
+					arrows.add(arrow);
+				}
+			}
+		}
+					
+		return arrows;
+	}
+	
 	public void remove(Element elemento) {
-		if(elemento instanceof Figure)
-			for(Element e : elementos)
-				if(e instanceof Arrow)
-					if(((Arrow) e).hasElement(elemento))
-						elementos.remove(e);
+		if(elemento instanceof Figure){
+			for(Element e : elementos){
+				if(e instanceof Arrow){
+					Arrow arrow = (Arrow) e;
+					if(arrow.hasElement(elemento)){
+						elementos.remove(arrow);
+					}
+				}
+			}
+		}
 		
 		elementos.remove(elemento);
 	}

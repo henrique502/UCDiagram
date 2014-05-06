@@ -6,10 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-public abstract class Controller implements ActionListener, MouseListener, MouseMotionListener, MenuListener {
+public abstract class Controller implements ActionListener, MouseListener, MouseMotionListener, MenuListener, ListSelectionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {}
@@ -44,4 +46,6 @@ public abstract class Controller implements ActionListener, MouseListener, Mouse
 	@Override
 	public void menuSelected(MenuEvent e) {}
 
+	@Override
+	public void valueChanged(ListSelectionEvent e) {}
 }

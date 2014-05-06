@@ -31,8 +31,14 @@ public class SalvarProjetoEvent implements ActionListener {
 	private void salvar(){
 		File file = null;
 		if(view.getWindow().getProjetoArquivo() == null || newFile){
+			
 			file = setSaveFile();
-			file = new File(file.toString().replaceAll("." + Extension.ucdiagram, "") + "." + Extension.ucdiagram);
+			
+			String ext = Extension.getExtension(file);
+			if(ext == null || !ext.equalsIgnoreCase(Extension.ucdiagram)){
+				file = new File(file.getAbsolutePath(),file.getName() + "." + Extension.ucdiagram);
+			}
+			
 			if(!file.exists()){
 				try {
 					file.createNewFile();
@@ -58,6 +64,7 @@ public class SalvarProjetoEvent implements ActionListener {
 	
 	private File setSaveFile(){
 		FileBrowser fb = new FileBrowser();
+		fb.setSelectedFile(new File(view.getWindow().getProjeto().getNome() + "." + Extension.ucdiagram));
 		
 		switch (fb.showSaveDialog(view.getWindow())){
 			case FileBrowser.APPROVE_OPTION : return fb.getSelectedFile();

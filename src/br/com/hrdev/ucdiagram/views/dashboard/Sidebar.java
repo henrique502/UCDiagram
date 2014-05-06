@@ -3,7 +3,8 @@ package br.com.hrdev.ucdiagram.views.dashboard;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -32,6 +33,7 @@ import br.com.hrdev.ucdiagram.views.Dashboard;
 public class Sidebar extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
+	private static final int WIDTH = 150;
 	private Dashboard dashboard;
 	private UITree tree;
 	
@@ -44,7 +46,7 @@ public class Sidebar extends JPanel {
 
 	public Sidebar(Dashboard dashboard){
 		super(new BorderLayout(0,5));
-		setSize(new Dimension(150,getHeight()));
+		setSize(new Dimension(WIDTH,getHeight()));
 		setMaximumSize(getSize());
 		setMaximumSize(getSize());
 		this.dashboard = dashboard;
@@ -57,32 +59,59 @@ public class Sidebar extends JPanel {
 	}
 	
 	private void setInfoPanel(){
-		JPanel panel = new JPanel(new GridLayout(4, 1, 0, 5));
-		
 		infoText = new JTextField(10);
+		infoText.setEnabled(false);
+		
 		infoX = new JTextField("0",10);
 		infoY = new JTextField("0",10);
-		
-		panel.add(infoText);
-		
-		JPanel xy = new JPanel(new GridLayout(1, 2, 5, 0));
+
+		/* X Y */
 		infoX.setEnabled(false);
 		infoY.setEnabled(false);
-		xy.add(infoX);
-		xy.add(infoY);
-		panel.add(xy);
 		
+		/* Buttons */
 		infoSalvar = new JButton(Text.key(SidebarInfoController.OK), Icons.Accept);
 		infoSalvar.setName(SidebarInfoController.OK);
 		infoSalvar.addActionListener(new SidebarInfoController(dashboard));
-		panel.add(infoSalvar);
+		infoSalvar.setEnabled(false);
 		
 		infoCancelar = new JButton(Text.key(SidebarInfoController.CANCEL), Icons.Delete);
 		infoCancelar.setName(SidebarInfoController.CANCEL);
 		infoCancelar.addActionListener(new SidebarInfoController(dashboard));
-		panel.add(infoCancelar);
+		infoCancelar.setEnabled(false);
+		
+		GridBagLayout grid = new GridBagLayout();
+		GridBagConstraints constraints = new GridBagConstraints();
+		JPanel panel = new JPanel(grid);
+		panel.setSize(WIDTH, panel.getHeight());
+		panel.setBorder(BorderFactory.createTitledBorder(Text.key("dashboard_sidebar_info")));
+		
+		/* Grid */
+		constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+	
+		constraints.weightx = 0.0;
+		grid.setConstraints(infoText, constraints);
+		panel.add(infoText);
+		constraints.gridwidth = GridBagConstraints.RELATIVE;
+		
+		constraints.weightx = 1.0;
+		grid.setConstraints(infoX, constraints);
+		panel.add(infoX);
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+		
+		grid.setConstraints(infoY, constraints);
+		panel.add(infoY);
+		constraints.gridwidth = GridBagConstraints.RELATIVE;
 
-		panel.setSize(getSize().width, panel.getHeight());
+		grid.setConstraints(infoSalvar, constraints);
+		panel.add(infoSalvar);
+		constraints.gridwidth = GridBagConstraints.RELATIVE;
+		
+		grid.setConstraints(infoCancelar, constraints);
+		panel.add(infoCancelar);
+		constraints.gridwidth = GridBagConstraints.REMAINDER;
+		
 		add(panel,BorderLayout.SOUTH);
 	}
 
@@ -115,10 +144,6 @@ public class Sidebar extends JPanel {
 	
 	public Figure getItem() {
 		return infoItem;
-	}
-	
-	public void clearItem(){
-		infoItem = null;
 	}
 	
 	public void updateItem() {

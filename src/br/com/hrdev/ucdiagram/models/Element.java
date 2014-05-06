@@ -102,8 +102,8 @@ public abstract class Element implements Serializable {
 		return location;
 	}
 
-	public void setLocation(int x, int y) {
-		setLocation(new Point(x,y));
+	public void setLocation(double x, double y) {
+		setLocation(new Point((int) x, (int) y));
 	}
 	
 	public void setLocation(Point location) {

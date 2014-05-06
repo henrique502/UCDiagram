@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
-import br.com.hrdev.ucdiagram.models.arrows.Arrow;
 import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 
@@ -43,11 +42,6 @@ public class ToolbarCursorController extends Controller {
 				if(elemento instanceof Figure){
 					dashboard.getSidebar().setItem((Figure) elemento);
 					dashboard.repaint();
-					return;
-				}
-				
-				if(elemento instanceof Arrow){
-					System.out.println("TODO: action click arrow -" + elemento);
 					return;
 				}
 			}
