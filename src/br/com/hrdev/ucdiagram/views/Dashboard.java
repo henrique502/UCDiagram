@@ -10,7 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
-import br.com.hrdev.ucdiagram.controllers.DiagramaController;
 import br.com.hrdev.ucdiagram.events.CarregarProjetoEvent;
 import br.com.hrdev.ucdiagram.events.CloseEvent;
 import br.com.hrdev.ucdiagram.events.NovoProjetoEvent;
@@ -70,14 +69,6 @@ public class Dashboard extends View {
 		ComponentsUtil.clearMouseListeners(diagrama);
 		ComponentsUtil.clearMouseMotionListeners(diagrama);
 	}
-	
-	public void setDiagramaListiners(Diagrama diagrama){
-		if(diagrama == null) return;
-				
-		diagrama.addMouseListener(new DiagramaController(this));
-		diagrama.addMouseMotionListener(new DiagramaController(this));
-	}
-	
 	@Override
 	public void updateUIContents() {
 		updateAll();

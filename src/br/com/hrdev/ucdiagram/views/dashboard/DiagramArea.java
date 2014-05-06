@@ -3,22 +3,13 @@ package br.com.hrdev.ucdiagram.views.dashboard;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import br.com.hrdev.ucdiagram.components.UIToolBarButton;
 import br.com.hrdev.ucdiagram.models.Diagrama;
-import br.com.hrdev.ucdiagram.models.Element;
-import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 
 public class DiagramArea extends JPanel {
@@ -26,13 +17,9 @@ public class DiagramArea extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Dashboard dashboard;
 	private JPanel diagramArea;
-	private ArrayList<UIToolBarButton> toolbarButtons;
-	private ButtonGroup buttonGroup;
 	
 	private Toolbar toolbar;
 
-	
-	/* Temp Vars */
 	private Diagrama currentDiagram = null;
 	
 	public DiagramArea(Dashboard dashboard){
@@ -83,10 +70,7 @@ public class DiagramArea extends JPanel {
 			return;
 		}
 		
-		if(currentDiagram != null){
-
-		}
-		
+		dashboard.removeDiagramaListiners(currentDiagram);
 		currentDiagram = diagrama;
 		
 		card.show(diagramArea, currentDiagram.getNome());

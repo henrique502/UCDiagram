@@ -6,17 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
-import java.io.Serializable;
 
 import br.com.hrdev.ucdiagram.utils.Images;
 
-public class Actor extends Figure implements Serializable {
+public class Actor extends Figure {
 
 	private static final long serialVersionUID = 1L;
 	private static final Dimension Padding = new Dimension(2, 2);
 	private static final Dimension Image = new Dimension(39, 100);
-	
-	private Point fontPoint = null;
 	
 	public Actor(String nome, Graphics graphics, Point point){
 		super((Graphics2D) graphics);
@@ -33,11 +30,6 @@ public class Actor extends Figure implements Serializable {
 			width = Image.width + (Padding .width * 2);
 
 		setSize(new Dimension(width,height));
-
-		int x = (getWidth() - fm.stringWidth(nome)) / 2;
-	    int y = (fm.getAscent() + (getHeight() - (fm.getAscent() + fm.getDescent())) / 2);
-	    this.fontPoint  = new Point(getX() + x,getY() + y);
-	    
 		super.setNome(nome);
 	}
 
@@ -54,12 +46,16 @@ public class Actor extends Figure implements Serializable {
 	    
 		g.drawImage(image,getX() + x,getY() + y,null);
 		
-		paintText(g,y + Image.height + 14);
+		paintText(g,y + Image.height);
 	}
 
 	private void paintText(Graphics2D g, int y) {
 		g.setColor(Color.black);
 		g.setFont(getFont());
-		g.drawString(this.nome,+ fontPoint.x, getY() + y);
+		
+		int x = (getWidth() - fm.stringWidth(nome)) / 2;
+		y = ((fm.getAscent() + (getHeight() - (fm.getAscent() + fm.getDescent())) / 2)) + y;
+	   
+		g.drawString(this.nome,getX() + x, getY() + y);
 	}
 }

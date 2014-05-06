@@ -27,7 +27,7 @@ public abstract class Element implements Serializable {
 	
 	public abstract void paint(Graphics2D g);
 	
-	public boolean contains(Point p) {
+	public boolean contains(Point p){
 		if(p == null)
 			return false;
 		
@@ -55,7 +55,7 @@ public abstract class Element implements Serializable {
 			float[] dash = {5.0f};
 			g.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
 			g.setColor(Color.black);
-			g.draw(new RoundRectangle2D.Double(0, 0, getWidth() - 1, getHeight() - 1, 7, 7));
+			g.draw(new RoundRectangle2D.Double(getX(), getY(), getWidth() - 1, getHeight() - 1, 7, 7));
 		}
 	}
 
@@ -68,7 +68,7 @@ public abstract class Element implements Serializable {
 	
 	public int getHeight() {
 		if(size != null)
-			return size.width;
+			return size.height;
 		
 		return 0;
 	}

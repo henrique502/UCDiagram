@@ -9,9 +9,11 @@ import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
-import br.com.hrdev.ucdiagram.controllers.ToolbarController;
+import br.com.hrdev.ucdiagram.controllers.Controller;
+import br.com.hrdev.ucdiagram.controllers.ToolbarArrowController;
+import br.com.hrdev.ucdiagram.controllers.ToolbarCursorController;
+import br.com.hrdev.ucdiagram.controllers.ToolbarFigureController;
 import br.com.hrdev.ucdiagram.models.Diagrama;
-import br.com.hrdev.ucdiagram.utils.ComponentsUtil;
 import br.com.hrdev.ucdiagram.utils.Icons;
 import br.com.hrdev.ucdiagram.utils.Text;
 import br.com.hrdev.ucdiagram.views.Dashboard;
@@ -40,22 +42,20 @@ public class Toolbar extends JToolBar {
 		buttonGroup = new ButtonGroup();
 		toolbarButtons = new ArrayList<JToggleButton>();
 		
-		createButton(CURSOR,Icons.Cursor);
+		createButton(CURSOR,Icons.Cursor,new ToolbarCursorController(dashboard));
 		addSeparator();
-		createButton(ACTOR,Icons.Ator);
-		createButton(CASE,Icons.Caso);
+		createButton(ACTOR,Icons.Ator,new ToolbarFigureController(dashboard));
+		createButton(CASE,Icons.Caso,new ToolbarFigureController(dashboard));
 		addSeparator();
-		createButton(DEPENDENCY,Icons.Dependency);
-		createButton(ASSOCIATION,Icons.Association);
+		createButton(DEPENDENCY,Icons.Dependency,new ToolbarArrowController(dashboard));
+		createButton(ASSOCIATION,Icons.Association,new ToolbarArrowController(dashboard));
 	}
 	
-	private void createButton(String label, ImageIcon icon){
+	private void createButton(String label, ImageIcon icon, Controller controller){
 		JToggleButton button = new JToggleButton("", icon);
-		if(label.equals(CURSOR))
-			button.setSelected(true);
 		
 		button.setName(label);
-		button.addActionListener(new ToolbarController(dashboard));
+		button.addActionListener(controller);
 		button.setToolTipText(Text.key(label));
 		buttonGroup.add(button);
 		toolbarButtons.add(button);
@@ -75,17 +75,11 @@ public class Toolbar extends JToolBar {
 		
 		if(diagrama != null){
 			diagrama.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-			ComponentsUtil.clearMouseListeners(diagrama);
-			ComponentsUtil.clearMouseMotionListeners(diagrama);
+			dashboard.removeDiagramaListiners(diagrama);
 		}
 		
-		for(JToggleButton button : toolbarButtons){
-			if(button.equals(CURSOR)){
-				button.setSelected(true);
-			} else {
-				button.setSelected(false);
-			}
-		}
+		buttonGroup.clearSelection();
+		toolbarButtons.get(0).setSelected(true);
 	}
 	
 }

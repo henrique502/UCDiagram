@@ -9,35 +9,29 @@ import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
 import br.com.hrdev.ucdiagram.models.figures.Actor;
 import br.com.hrdev.ucdiagram.models.figures.Case;
-import br.com.hrdev.ucdiagram.utils.ComponentsUtil;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 import br.com.hrdev.ucdiagram.views.dashboard.Toolbar;
 
-public class ToolbarController extends Controller {
+public class ToolbarFigureController extends Controller {
 	
 	private Dashboard dashboard;
 
-	public ToolbarController(Dashboard dashboard) {
+	public ToolbarFigureController(Dashboard dashboard) {
 		this.dashboard = dashboard;
 	}
 	
 	private Element doAction(Diagrama diagrama, String action, Point point){
-		Element elemento = null;
-		
 		if(action.equals(Toolbar.ACTOR))
-			elemento = new Actor("Actor",dashboard.getGraphics(),point);
+			return new Actor("Actor",dashboard.getGraphics(),point);
 		
 		if(action.equals(Toolbar.CASE))
-			elemento = new Case("Case",dashboard.getGraphics(),point);
+			return new Case("Case",dashboard.getGraphics(),point);
 
-		return elemento;
+		return null;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(dashboard.getToolbar().getCurrent().equals(Toolbar.CURSOR))
-			return;
-		
 		Diagrama diagrama = dashboard.getDiagram();
 		
 		diagrama.setCursor(new Cursor(Cursor.HAND_CURSOR));

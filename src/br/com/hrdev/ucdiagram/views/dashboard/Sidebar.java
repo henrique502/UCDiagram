@@ -18,6 +18,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import br.com.hrdev.ucdiagram.components.UITree;
 import br.com.hrdev.ucdiagram.components.UITreeCellRenderer;
+import br.com.hrdev.ucdiagram.controllers.SidebarInfoController;
 import br.com.hrdev.ucdiagram.events.AdicionarDiagramaEvent;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
@@ -71,12 +72,14 @@ public class Sidebar extends JPanel {
 		xy.add(infoY);
 		panel.add(xy);
 		
-		infoSalvar = new JButton("Salvar", Icons.Accept);
-		infoSalvar.addActionListener(null);
+		infoSalvar = new JButton(Text.key(SidebarInfoController.OK), Icons.Accept);
+		infoSalvar.setName(SidebarInfoController.OK);
+		infoSalvar.addActionListener(new SidebarInfoController(dashboard));
 		panel.add(infoSalvar);
 		
-		infoCancelar = new JButton("Cancelar", Icons.Delete);
-		infoCancelar.addActionListener(null);
+		infoCancelar = new JButton(Text.key(SidebarInfoController.CANCEL), Icons.Delete);
+		infoCancelar.setName(SidebarInfoController.CANCEL);
+		infoCancelar.addActionListener(new SidebarInfoController(dashboard));
 		panel.add(infoCancelar);
 
 		panel.setSize(getSize().width, panel.getHeight());
@@ -96,7 +99,7 @@ public class Sidebar extends JPanel {
 		add(scrollPane,BorderLayout.CENTER);
 		
 		JButton addDiagram = new JButton(Icons.Add);
-		addDiagram.setText("Novo Diagrama");
+		addDiagram.setText(Text.key("dashboard_sidebar_add_diagrama"));
 		addDiagram.addActionListener(new AdicionarDiagramaEvent(dashboard));
 		add(addDiagram,BorderLayout.NORTH);
 	}
@@ -110,7 +113,7 @@ public class Sidebar extends JPanel {
 		});
 	}
 	
-	public Element getItem() {
+	public Figure getItem() {
 		return infoItem;
 	}
 	
@@ -132,7 +135,7 @@ public class Sidebar extends JPanel {
 		infoX.setText("0");
 		infoY.setText("0");
 		infoItem = null;
-		setEnabled(false);
+		setInfoEnabled(false);
 	}
 	
 	public void setItem(Figure i){
@@ -141,11 +144,21 @@ public class Sidebar extends JPanel {
 		infoItem = i;
 		infoItem.setSelected(true);
 		infoText.setText(infoItem.getNome());
-		setEnabled(true);
+		setInfoEnabled(true);
 		infoX.setText(infoItem.getX() + "");
 		infoY.setText(infoItem.getY() + "");
 	}
 	
+	public void setInfoEnabled(boolean enabled) {
+		infoText.setEnabled(enabled);
+		infoSalvar.setEnabled(enabled);
+		infoCancelar.setEnabled(enabled);
+	}
+
+	public String getInfoText() {
+		return infoText.getText();
+	}
+
 	public void updateDataTree() {
 		Projeto projeto = dashboard.getWindow().getProjeto();
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode(projeto);
@@ -168,12 +181,6 @@ public class Sidebar extends JPanel {
 		
 		tree.updateAll(rootNode);
 		tree.expandRow(0);
-	}
-	
-	public void setInfoEnabled(boolean enabled) {
-		infoText.setEnabled(enabled);
-		infoSalvar.setEnabled(enabled);
-		infoCancelar.setEnabled(enabled);
 	}
 	
 	/*

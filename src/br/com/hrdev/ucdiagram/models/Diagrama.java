@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -34,8 +35,11 @@ public class Diagrama extends JPanel {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
+		Stroke stroke = g.getStroke();
+		
 		for (Element elemento : elementos) {
 			elemento.paint(g);
+			g.setStroke(stroke);
 		}
 		
 		g.dispose();
