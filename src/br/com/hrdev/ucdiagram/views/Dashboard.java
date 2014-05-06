@@ -44,7 +44,6 @@ public class Dashboard extends View {
 		
 		add(sidebar,BorderLayout.WEST);
 		add(diagramArea,BorderLayout.CENTER);
-		
 	}
 	
 	public void showDiagram(Diagrama diagrama) {
@@ -94,11 +93,11 @@ public class Dashboard extends View {
 		itemSalvar.addActionListener(new SalvarProjetoEvent(this,false));
 		
 		/* Item Salvar Como */
-		JMenuItem itemSalvarComo = new JMenuItem(Text.key("dashboard_menu_arquivo_salvar"));  
+		JMenuItem itemSalvarComo = new JMenuItem(Text.key("dashboard_menu_arquivo_salvar_como"));  
 		itemSalvarComo.addActionListener(new SalvarProjetoEvent(this,true));
 		
 		/* Item Exportar */
-		JMenuItem itemExportar = new JMenuItem(Text.key("dashboard_menu_arquivo_salcar_como"));
+		JMenuItem itemExportar = new JMenuItem(Text.key("dashboard_menu_arquivo_exportar"));
 		itemExportar.setEnabled(false);
 		
 		/* Item Sair */

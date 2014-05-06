@@ -30,7 +30,6 @@ public class Case extends Figure {
 
 	@Override
 	public void paint(Graphics2D g) {
-		System.out.println(getSize());
 		paintEllipse(g);
 		paintText(g);
 		paintSelectedBorder(g);

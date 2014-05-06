@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.Stroke;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+import br.com.hrdev.ucdiagram.models.arrows.Arrow;
+import br.com.hrdev.ucdiagram.models.figures.Figure;
 
 public class Diagrama extends JPanel {
 
@@ -31,26 +33,33 @@ public class Diagrama extends JPanel {
 	@Override
 	public void paint(Graphics graphics) {
 		super.paint(graphics);
-		Graphics2D g = (Graphics2D) graphics;
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-		
-		Stroke stroke = g.getStroke();
-		
+
 		for (Element elemento : elementos) {
+			Graphics2D g = (Graphics2D) graphics.create();
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			
 			elemento.paint(g);
-			g.setStroke(stroke);
+			g.dispose();
 		}
-		
-		g.dispose();
 	}
 	
 	public void remove(Element elemento) {
+		if(elemento instanceof Figure)
+			for(Element e : elementos)
+				if(e instanceof Arrow)
+					if(((Arrow) e).hasElement(elemento))
+						elementos.remove(e);
+		
 		elementos.remove(elemento);
 	}
 	
 	public void add(Element elemento) {
 		elementos.add(elemento);
+	}
+	
+	public void addFirst(Element elemento) {
+		elementos.add(0, elemento);
 	}
 	
 	public ArrayList<Element> getAll() {

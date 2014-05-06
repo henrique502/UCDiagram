@@ -24,6 +24,7 @@ public class Toolbar extends JToolBar {
 	private Dashboard dashboard;
 	private ArrayList<JToggleButton> toolbarButtons;
 	private ButtonGroup buttonGroup;
+	private ToolbarCursorController cursorController;
 	
 	public static final String CURSOR = "dashboard_toolbar_cursor";
 	public static final String ACTOR = "dashboard_toolbar_actor";
@@ -41,8 +42,9 @@ public class Toolbar extends JToolBar {
 	private void setup(){
 		buttonGroup = new ButtonGroup();
 		toolbarButtons = new ArrayList<JToggleButton>();
+		cursorController = new ToolbarCursorController(dashboard);
 		
-		createButton(CURSOR,Icons.Cursor,new ToolbarCursorController(dashboard));
+		createButton(CURSOR,Icons.Cursor,cursorController);
 		addSeparator();
 		createButton(ACTOR,Icons.Ator,new ToolbarFigureController(dashboard));
 		createButton(CASE,Icons.Caso,new ToolbarFigureController(dashboard));
@@ -70,16 +72,27 @@ public class Toolbar extends JToolBar {
 		return null;
 	}
 	
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		for(JToggleButton b : toolbarButtons)
+			b.setEnabled(enabled);
+	}
+	
 	public void reset(){
 		Diagrama diagrama = dashboard.getDiagram();
+		
+		buttonGroup.clearSelection();
+		toolbarButtons.get(0).setSelected(true);
+		toolbarButtons.get(0).requestFocus();
 		
 		if(diagrama != null){
 			diagrama.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			dashboard.removeDiagramaListiners(diagrama);
+			cursorController.actionPerformed(null);
+		} else {
+			setEnabled(false);
 		}
-		
-		buttonGroup.clearSelection();
-		toolbarButtons.get(0).setSelected(true);
 	}
 	
 }

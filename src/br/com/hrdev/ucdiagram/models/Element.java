@@ -34,13 +34,18 @@ public abstract class Element implements Serializable {
 		return contains(p.x, p.y);
 	}
 	
-	public boolean contains(int x, int y) {
-		Point location = getLocation();
-		
+	public boolean contains(double x, double y) {
+		return (containX(x) && containY(y));
+	}
+	
+	public boolean containX(double x) {
 		if(x <= location.x) return false;
-		if(y <= location.y) return false;
-		
 		if(x >= getWidth() + location.x) return false;
+		return true;
+	}
+	
+	public boolean containY(double y) {
+		if(y <= location.y) return false;
 		if(y >= getHeight() + location.y) return false;
 		
 		return true;
@@ -54,7 +59,7 @@ public abstract class Element implements Serializable {
 		if(hasSelected){
 			float[] dash = {5.0f};
 			g.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
-			g.setColor(Color.black);
+			g.setColor(Color.lightGray);
 			g.draw(new RoundRectangle2D.Double(getX(), getY(), getWidth() - 1, getHeight() - 1, 7, 7));
 		}
 	}

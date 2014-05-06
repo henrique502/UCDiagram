@@ -53,6 +53,7 @@ public class DiagramArea extends JPanel {
 	public void updateDiagramAreaData(){
 		diagramArea.removeAll();
 		currentDiagram = null;
+		toolbar.setEnabled(false);
 		
 		JPanel blank = new JPanel();
 		blank.setOpaque(false);
@@ -67,9 +68,11 @@ public class DiagramArea extends JPanel {
 		CardLayout card = (CardLayout) diagramArea.getLayout();
 		if(diagrama == null){
 			card.show(diagramArea, "blank");
+			toolbar.setEnabled(false);
 			return;
 		}
 		
+		toolbar.setEnabled(true);
 		dashboard.removeDiagramaListiners(currentDiagram);
 		currentDiagram = diagrama;
 		

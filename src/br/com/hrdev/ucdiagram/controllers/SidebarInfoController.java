@@ -27,6 +27,7 @@ public class SidebarInfoController extends Controller {
 			dashboard.getSidebar().getItem().setNome(text);
 			dashboard.getSidebar().updateDataTree();
 		}
+		dashboard.repaint();
 		dashboard.getSidebar().clear();
 	}
 }

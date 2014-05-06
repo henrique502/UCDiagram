@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
+import br.com.hrdev.ucdiagram.models.arrows.Arrow;
 import br.com.hrdev.ucdiagram.models.figures.Figure;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 
@@ -42,11 +43,16 @@ public class ToolbarCursorController extends Controller {
 				if(elemento instanceof Figure){
 					dashboard.getSidebar().setItem((Figure) elemento);
 					dashboard.repaint();
+					return;
 				}
-				return;
+				
+				if(elemento instanceof Arrow){
+					System.out.println("TODO: action click arrow -" + elemento);
+					return;
+				}
 			}
 		}
-		
+		dashboard.repaint();
 		dashboard.getSidebar().clear();
 	}
 	
@@ -81,7 +87,21 @@ public class ToolbarCursorController extends Controller {
         
         dashboard.getSidebar().updateItem();
         figure.setLocation(myX + deltaX, myY + deltaY);
-        dashboard.repaint();
+        dashboard.getDiagram().repaint();
+	}
+	
+	public void mouseMoved(MouseEvent e) {
+		Diagrama diagrama = dashboard.getDiagram();
+
+		for(Element elemento : diagrama.getAll()){
+			if(elemento.contains(e.getPoint())){
+				if(elemento instanceof Figure){
+					diagrama.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				}
+				return;
+			}
+		}
+		diagrama.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 
 }

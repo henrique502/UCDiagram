@@ -46,7 +46,7 @@ public class Actor extends Figure {
 	    
 		g.drawImage(image,getX() + x,getY() + y,null);
 		
-		paintText(g,y + Image.height);
+		paintText(g,image.getHeight(null) + Padding.height);
 	}
 
 	private void paintText(Graphics2D g, int y) {
@@ -54,7 +54,7 @@ public class Actor extends Figure {
 		g.setFont(getFont());
 		
 		int x = (getWidth() - fm.stringWidth(nome)) / 2;
-		y = ((fm.getAscent() + (getHeight() - (fm.getAscent() + fm.getDescent())) / 2)) + y;
+		y += 14;
 	   
 		g.drawString(this.nome,getX() + x, getY() + y);
 	}

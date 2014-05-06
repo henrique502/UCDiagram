@@ -182,18 +182,4 @@ public class Sidebar extends JPanel {
 		tree.updateAll(rootNode);
 		tree.expandRow(0);
 	}
-	
-	/*
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("Salvar")){
-			String text = nome.getText();
-			if(text == null || text.trim().equals("")) return;
-			
-			item.setNome(nome.getText());
-			sidebar.updateDataTree();
-		}
-		clear();
-	}
-	*/
 }
