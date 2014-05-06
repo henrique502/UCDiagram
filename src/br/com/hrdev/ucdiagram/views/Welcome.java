@@ -34,7 +34,7 @@ public class Welcome extends View {
 	private void setWelcome(){
 		JLabel mensagem = new JLabel();
 		mensagem.setText(Text.key("welcome", UCDiagram.Title));
-		mensagem.setFont(new Font("Arial", Font.PLAIN, 42));
+		mensagem.setFont(new Font("Arial", Font.PLAIN, 30));
 		mensagem.setHorizontalAlignment(SwingConstants.CENTER);
 		add(mensagem,BorderLayout.CENTER);
 	}

@@ -20,11 +20,14 @@ public class UCDiagram extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private static final Dimension Size = new Dimension(1024, 700);
-
+	
 	public static String Title = null;
 	
 	private JPanel painel;
 	private CardLayout layout;
+	
+	@SuppressWarnings("unused")
+	private Text textCache = new Text();
 	
 	private File projetoArquivo;
 	private Projeto projeto;
