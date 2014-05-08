@@ -32,8 +32,14 @@ public abstract class Arrow extends Element {
 		this.end = end;
 	}
 	
-	public boolean hasElement(Element elemento) {
-		return (elemento == start || elemento == end);
+	public boolean hasFigure(Figure figure) {
+		if(figure == start)
+			return true;
+		
+		if(figure == end)
+			return true;
+		
+		return false;
 	}
 	
 	@Override

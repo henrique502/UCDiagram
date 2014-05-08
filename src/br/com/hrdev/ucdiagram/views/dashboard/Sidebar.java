@@ -17,10 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import br.com.hrdev.ucdiagram.components.UITree;
-import br.com.hrdev.ucdiagram.components.UITreeCellRenderer;
+import br.com.hrdev.ucdiagram.controllers.NovoDiagramaController;
 import br.com.hrdev.ucdiagram.controllers.SidebarInfoController;
-import br.com.hrdev.ucdiagram.events.AdicionarDiagramaEvent;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.models.Element;
 import br.com.hrdev.ucdiagram.models.Projeto;
@@ -35,7 +33,7 @@ public class Sidebar extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static final int WIDTH = 150;
 	private Dashboard dashboard;
-	private UITree tree;
+	private ProjetoTree tree;
 	
 	private JTextField infoText = null;
 	private JTextField infoX = null;
@@ -116,9 +114,8 @@ public class Sidebar extends JPanel {
 	}
 
 	private void setTreePanel(){
-		tree = new UITree(dashboard);
+		tree = new ProjetoTree(dashboard);
 		tree.setBorder(new EmptyBorder(4, 4, 4, 4));
-		tree.setCellRenderer(new UITreeCellRenderer());
 		
 		JScrollPane scrollPane = new JScrollPane(tree);
 		scrollPane.setBorder(BorderFactory.createLineBorder(Color.gray));
@@ -129,7 +126,7 @@ public class Sidebar extends JPanel {
 		
 		JButton addDiagram = new JButton(Icons.Add);
 		addDiagram.setText(Text.key("dashboard_sidebar_add_diagrama"));
-		addDiagram.addActionListener(new AdicionarDiagramaEvent(dashboard));
+		addDiagram.addActionListener(new NovoDiagramaController(dashboard));
 		add(addDiagram,BorderLayout.NORTH);
 	}
 	

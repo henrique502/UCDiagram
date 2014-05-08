@@ -1,7 +1,6 @@
-package br.com.hrdev.ucdiagram.events;
+package br.com.hrdev.ucdiagram.controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
@@ -10,11 +9,11 @@ import br.com.hrdev.ucdiagram.models.Projeto;
 import br.com.hrdev.ucdiagram.utils.Text;
 import br.com.hrdev.ucdiagram.views.View;
 
-public class NovoProjetoEvent implements ActionListener {
+public class NovoProjetoController extends Controller {
 
 	private View view;
 
-	public NovoProjetoEvent(View view){
+	public NovoProjetoController(View view){
 		this.view = view;
 	}
 

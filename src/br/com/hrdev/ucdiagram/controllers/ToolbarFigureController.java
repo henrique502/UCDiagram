@@ -32,7 +32,7 @@ public class ToolbarFigureController extends Controller {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		
 		diagrama.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		dashboard.removeDiagramaListiners(diagrama);
@@ -42,7 +42,7 @@ public class ToolbarFigureController extends Controller {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		String action = dashboard.getToolbar().getCurrent();
 		
 		Element elemento = doAction(diagrama,action,e.getPoint());

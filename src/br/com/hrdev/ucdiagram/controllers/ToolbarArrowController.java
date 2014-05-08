@@ -50,7 +50,7 @@ public class ToolbarArrowController extends Controller {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		arrow = getArrow((JToggleButton) e.getSource());
 		if(arrow == null) return;
 		
@@ -63,7 +63,7 @@ public class ToolbarArrowController extends Controller {
 	
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 
 		for(Element elemento : diagrama.getAll()){
 			if(elemento.contains(e.getPoint())){
@@ -78,7 +78,7 @@ public class ToolbarArrowController extends Controller {
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 
 		for(Element elemento : diagrama.getAll()){
 			if(elemento.contains(e.getPoint())){

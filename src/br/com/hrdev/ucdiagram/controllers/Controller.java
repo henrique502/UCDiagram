@@ -10,8 +10,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
-public abstract class Controller implements ActionListener, MouseListener, MouseMotionListener, MenuListener, ListSelectionListener {
+public abstract class Controller implements ActionListener, MouseListener, MouseMotionListener, MenuListener, ListSelectionListener, TreeSelectionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {}
@@ -48,4 +50,7 @@ public abstract class Controller implements ActionListener, MouseListener, Mouse
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {}
+
+	@Override
+	public void valueChanged(TreeSelectionEvent e) {}
 }

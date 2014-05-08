@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -50,7 +51,7 @@ public class Diagrama extends JPanel {
 		for(Element e : elementos){
 			if(e instanceof Arrow){
 				Arrow arrow = (Arrow) e;
-				if(arrow.hasElement(figure)){
+				if(arrow.hasFigure(figure)){
 					arrows.add(arrow);
 				}
 			}
@@ -61,19 +62,17 @@ public class Diagrama extends JPanel {
 	
 	public void remove(Element elemento) {
 		if(elemento instanceof Figure){
-			for(Element e : elementos){
-				if(e instanceof Arrow){
-					Arrow arrow = (Arrow) e;
-					if(arrow.hasElement(elemento)){
-						elementos.remove(arrow);
-					}
-				}
-			}
+			removeArrowsFromFigure((Figure) elemento);
 		}
 		
 		elementos.remove(elemento);
 	}
 	
+	private void removeArrowsFromFigure(Figure figure) {
+		for(Arrow arrow : getArrowsFromFigure(figure))
+			elementos.remove(arrow);
+	}
+
 	public void add(Element elemento) {
 		elementos.add(elemento);
 	}
@@ -84,6 +83,15 @@ public class Diagrama extends JPanel {
 	
 	public ArrayList<Element> getAll() {
 		return elementos;
+	}
+	
+	public BufferedImage createImage(){
+	    int w = getWidth();
+	    int h = getHeight();
+	    BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+	    Graphics2D g = bi.createGraphics();
+	    paint(g);
+	    return bi;
 	}
 	
 	public String toString(){

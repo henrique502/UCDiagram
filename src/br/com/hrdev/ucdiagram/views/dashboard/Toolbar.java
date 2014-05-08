@@ -80,7 +80,7 @@ public class Toolbar extends JToolBar {
 	}
 	
 	public void reset(){
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		
 		buttonGroup.clearSelection();
 		toolbarButtons.get(0).setSelected(true);

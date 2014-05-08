@@ -24,7 +24,7 @@ public class ToolbarCursorController extends Controller {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		
 		diagrama.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		dashboard.removeDiagramaListiners(diagrama);
@@ -35,7 +35,7 @@ public class ToolbarCursorController extends Controller {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 
 		for(Element elemento : diagrama.getAll()){
 			if(elemento.contains(e.getPoint())){
@@ -52,12 +52,12 @@ public class ToolbarCursorController extends Controller {
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		dashboard.getDiagram().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		dashboard.getDiagrama().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 		Figure figure = dashboard.getSidebar().getItem();
 		if(figure == null || !figure.contains(e.getPoint())) return;
 		
@@ -81,11 +81,11 @@ public class ToolbarCursorController extends Controller {
         
         dashboard.getSidebar().updateItem();
         figure.setLocation(myX + deltaX, myY + deltaY);
-        dashboard.getDiagram().repaint();
+        dashboard.getDiagrama().repaint();
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		Diagrama diagrama = dashboard.getDiagram();
+		Diagrama diagrama = dashboard.getDiagrama();
 
 		for(Element elemento : diagrama.getAll()){
 			if(elemento.contains(e.getPoint())){

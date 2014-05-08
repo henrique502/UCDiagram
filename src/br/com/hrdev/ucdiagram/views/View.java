@@ -9,7 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
-import br.com.hrdev.ucdiagram.events.AjudaAction;
+import br.com.hrdev.ucdiagram.controllers.AjudaController;
 import br.com.hrdev.ucdiagram.utils.Icons;
 
 public abstract class View extends JPanel {
@@ -54,7 +54,7 @@ public abstract class View extends JPanel {
 		JMenu ajuda = new JMenu();
 		ajuda.setIcon(Icons.Help);
 		ajuda.setFocusable(false);
-		ajuda.addMenuListener(new AjudaAction(this));
+		ajuda.addMenuListener(new AjudaController(this));
 		menubar.add(Box.createHorizontalGlue());
 		menubar.add(ajuda);
 		

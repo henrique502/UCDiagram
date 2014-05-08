@@ -38,4 +38,12 @@ public class Projeto implements Serializable {
 	public String toString(){
 		return this.nome;
 	}
+
+	public boolean exists(Diagrama diagrama) {
+		for(Diagrama d : diagramas)
+			if(diagrama == d)
+				return true;
+			
+		return false;
+	}
 }

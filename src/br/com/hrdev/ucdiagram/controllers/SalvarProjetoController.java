@@ -1,7 +1,6 @@
-package br.com.hrdev.ucdiagram.events;
+package br.com.hrdev.ucdiagram.controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -13,12 +12,12 @@ import br.com.hrdev.ucdiagram.utils.Extension;
 import br.com.hrdev.ucdiagram.utils.Text;
 import br.com.hrdev.ucdiagram.views.View;
 
-public class SalvarProjetoEvent implements ActionListener {
+public class SalvarProjetoController extends Controller {
 	
 	private View view;
 	private boolean newFile;
 
-	public SalvarProjetoEvent(View view, boolean newfile){
+	public SalvarProjetoController(View view, boolean newfile){
 		this.view = view;
 		this.newFile = newfile;
 	}

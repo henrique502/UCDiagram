@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import br.com.hrdev.ucdiagram.UCDiagram;
-import br.com.hrdev.ucdiagram.events.CarregarProjetoEvent;
-import br.com.hrdev.ucdiagram.events.CloseEvent;
-import br.com.hrdev.ucdiagram.events.NovoProjetoEvent;
+import br.com.hrdev.ucdiagram.controllers.CarregarProjetoController;
+import br.com.hrdev.ucdiagram.controllers.CloseController;
+import br.com.hrdev.ucdiagram.controllers.NovoProjetoController;
 import br.com.hrdev.ucdiagram.utils.Text;
 
 public class Welcome extends View {
@@ -44,17 +44,17 @@ public class Welcome extends View {
 		
 		JButton novo = new JButton();
 		novo.setText(Text.key("welcome_novo"));
-		novo.addActionListener(new NovoProjetoEvent(this));
+		novo.addActionListener(new NovoProjetoController(this));
 		buttons.add(novo);
 		
 		JButton carregar = new JButton();
 		carregar.setText(Text.key("welcome_carregar"));
-		carregar.addActionListener(new CarregarProjetoEvent(this));
+		carregar.addActionListener(new CarregarProjetoController(this));
 		buttons.add(carregar);
 		
 		JButton sair = new JButton();
 		sair.setText(Text.key("sair"));
-		sair.addActionListener(new CloseEvent());
+		sair.addActionListener(new CloseController());
 		buttons.add(sair);
 		
 		add(buttons,BorderLayout.SOUTH);

@@ -1,20 +1,18 @@
-package br.com.hrdev.ucdiagram.events;
+package br.com.hrdev.ucdiagram.controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
-import javax.swing.event.MenuListener;
 
 import br.com.hrdev.ucdiagram.utils.Text;
 import br.com.hrdev.ucdiagram.views.View;
 
-public class AjudaAction implements ActionListener, MenuListener {
+public class AjudaController extends Controller {
 
 	private View view;
 	
-	public AjudaAction(View view){
+	public AjudaController(View view){
 		this.view = view;
 	}
 	
@@ -26,12 +24,6 @@ public class AjudaAction implements ActionListener, MenuListener {
 	public void actionPerformed(ActionEvent e){
 		openText();
 	}
-
-	@Override
-	public void menuCanceled(MenuEvent e) {}
-
-	@Override
-	public void menuDeselected(MenuEvent e) {}
 
 	@Override
 	public void menuSelected(MenuEvent e) {

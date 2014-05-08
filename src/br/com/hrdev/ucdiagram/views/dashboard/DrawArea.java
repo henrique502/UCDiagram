@@ -12,7 +12,7 @@ import javax.swing.border.EmptyBorder;
 import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 
-public class DiagramArea extends JPanel {
+public class DrawArea extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Dashboard dashboard;
@@ -22,7 +22,7 @@ public class DiagramArea extends JPanel {
 
 	private Diagrama currentDiagram = null;
 	
-	public DiagramArea(Dashboard dashboard){
+	public DrawArea(Dashboard dashboard){
 		super(new BorderLayout(0,0));
 		this.dashboard = dashboard;
 		setBackground(Color.white);
@@ -52,9 +52,8 @@ public class DiagramArea extends JPanel {
 
 	public void updateDiagramAreaData(){
 		diagramArea.removeAll();
-		currentDiagram = null;
-		toolbar.setEnabled(false);
 		
+		toolbar.setEnabled(false);
 		JPanel blank = new JPanel();
 		blank.setOpaque(false);
 		diagramArea.add(blank,"blank");
@@ -62,10 +61,17 @@ public class DiagramArea extends JPanel {
 		for(Diagrama diagrama : dashboard.getWindow().getProjeto().getDiagramas()){
 			diagramArea.add(diagrama,diagrama.getNome());
 		}
+		
+		if(dashboard.getWindow().getProjeto().exists(currentDiagram)){
+			showDiagrama(currentDiagram);
+		} else {
+			currentDiagram = null;
+		}
 	}
 	
-	public void showDiagram(Diagrama diagrama){
+	public void showDiagrama(Diagrama diagrama){
 		CardLayout card = (CardLayout) diagramArea.getLayout();
+		
 		if(diagrama == null){
 			card.show(diagramArea, "blank");
 			toolbar.setEnabled(false);

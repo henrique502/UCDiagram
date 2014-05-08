@@ -1,7 +1,5 @@
 package br.com.hrdev.ucdiagram.controllers;
 
-import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -12,24 +10,30 @@ import br.com.hrdev.ucdiagram.models.Diagrama;
 import br.com.hrdev.ucdiagram.utils.Extension;
 import br.com.hrdev.ucdiagram.views.Dashboard;
 
-public class MenuExportController extends Controller {
+public class ExportController extends Controller {
 	
 	
 	private Dashboard dashboard;
 	
-	public MenuExportController(Dashboard dashboard) {
+	public ExportController(Dashboard dashboard) {
 		this.dashboard = dashboard;
 	}
 	
 	public void actionPerformed(java.awt.event.ActionEvent e) {
-		Diagrama panel = dashboard.getDiagram();
-		if(panel == null) return;
+		Diagrama diagrama = dashboard.getDiagrama();
+		if(diagrama == null) return;
 		
+		export(diagrama);
+	}
+
+	public void export(Diagrama diagrama) {
 		try {
 			dashboard.getSidebar().clear();
+			String filename = diagrama.getNome() + " - " + dashboard.getWindow().getProjeto().getNome();
+			
 			
 			FileBrowser fb = new FileBrowser(true);
-			fb.setSelectedFile(new File(dashboard.getWindow().getProjeto().getNome() + "." + Extension.png));
+			fb.setSelectedFile(new File(filename + "." + Extension.png));
 
 			switch (fb.showSaveDialog(dashboard)){
 				case FileBrowser.APPROVE_OPTION : break;
@@ -39,7 +43,7 @@ public class MenuExportController extends Controller {
 			File file = fb.getSelectedFile();
 			File absolute = new File(fb.getCurrentDirectory(), file.getName());
 			
-			BufferedImage image = new Robot().createScreenCapture(new Rectangle(panel.getLocationOnScreen().x, panel.getLocationOnScreen().y, panel.getWidth(), panel.getHeight()));
+			BufferedImage image = diagrama.createImage();
 			ImageIO.write(image, Extension.png,  absolute);
 		} catch(Exception ex){
 			ex.printStackTrace();

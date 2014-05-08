@@ -1,7 +1,6 @@
-package br.com.hrdev.ucdiagram.events;
+package br.com.hrdev.ucdiagram.controllers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JOptionPane;
@@ -12,11 +11,11 @@ import br.com.hrdev.ucdiagram.libraries.FileManager;
 import br.com.hrdev.ucdiagram.models.Projeto;
 import br.com.hrdev.ucdiagram.views.View;
 
-public class CarregarProjetoEvent implements ActionListener {
+public class CarregarProjetoController extends Controller {
 	
 	private View view;
 
-	public CarregarProjetoEvent(View view){
+	public CarregarProjetoController(View view){
 		this.view = view;
 	}
 	
@@ -42,7 +41,6 @@ public class CarregarProjetoEvent implements ActionListener {
 			
 		} else {
 			JOptionPane.showMessageDialog(view.getWindow(), "Erro ao carregar o projeto");
-			System.out.println(file);
 		}
 	}
 	
